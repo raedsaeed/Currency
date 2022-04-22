@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Currency</string>
+    <string name="currency">Currency</string>
+    <string name="historical_info">Historical Info</string>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/convert_fragment">
+
+    <fragment
+        android:id="@+id/convert_fragment"
+        android:name="com.raed.currency.presentation.convert.ConvertFragment"
+        android:label="@string/currency" />
+
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.raed.currency.presentation.details.DetailsFragment"
+        android:label="@string/historical_info" />
+</navigation>

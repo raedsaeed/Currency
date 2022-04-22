@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
     companion object {
-        const val baseUrl = "http://data.fixer.io/api/"
+        const val baseUrl = "http://api.currencylayer.com/"
     }
 
     @Provides
