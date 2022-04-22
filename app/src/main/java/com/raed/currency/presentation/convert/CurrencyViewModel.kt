@@ -18,20 +18,20 @@ import javax.inject.Inject
  * Created By Raed Saeed on 22/04/2022
  */
 @HiltViewModel
-class CurrenciesViewModel @Inject constructor(
+class CurrencyViewModel @Inject constructor(
     private val latestUseCase: ILatestUseCase,
     private val historicalUseCase: IHistoricalUseCase,
     private val convertUseCase: ConvertUseCase
 ) : ViewModel() {
     private val currenciesLiveData = MutableLiveData<ViewState>()
-    val _currenciesValue : LiveData<ViewState> = currenciesLiveData
+    val currenciesValue : LiveData<ViewState> = currenciesLiveData
 
 
     private val historicalLiveData = MutableLiveData<ViewState>()
-    val _historicalLiveData : LiveData<ViewState> = historicalLiveData
+    val historicalValue : LiveData<ViewState> = historicalLiveData
 
     private val convertedLivedData = MutableLiveData<ViewState>()
-    val _convertedLivedData : LiveData<ViewState> = convertedLivedData
+    val convertedValue : LiveData<ViewState> = convertedLivedData
 
 
     fun getUpdatedCurrencies() {
