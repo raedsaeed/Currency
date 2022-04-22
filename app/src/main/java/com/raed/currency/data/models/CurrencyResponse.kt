@@ -1,360 +1,529 @@
+package com.raed.currency.data.models
+
 
 import com.google.gson.annotations.SerializedName
 
-data class LiveResponse(
+data class CurrencyResponse(
     @SerializedName("date")
-    val date: String = "",
+    var date: String = "",
     @SerializedName("historical")
-    val historical: Boolean = false,
+    var historical: Boolean = false,
     @SerializedName("privacy")
-    val privacy: String = "",
+    var privacy: String = "",
     @SerializedName("quotes")
-    val quotes: Quotes = Quotes(),
+    var quotes: Quotes = Quotes(),
     @SerializedName("source")
-    val source: String = "",
+    var source: String = "",
     @SerializedName("success")
-    val success: Boolean = false,
+    var success: Boolean = false,
     @SerializedName("terms")
-    val terms: String = "",
+    var terms: String = "",
     @SerializedName("timestamp")
-    val timestamp: Int = 0
+    var timestamp: Int = 0
 ) {
-    data class Quotes(
+    class Quotes {
         @SerializedName("USDAED")
-        val uSDAED: Double = 0.0,
+        var USDAED: Float = 0f
+
         @SerializedName("USDAFN")
-        val uSDAFN: Double = 0.0,
+        var USDAFN: Float = 0f
+
         @SerializedName("USDALL")
-        val uSDALL: Double = 0.0,
+        var USDALL: Float = 0f
+
         @SerializedName("USDAMD")
-        val uSDAMD: Double = 0.0,
+        var USDAMD: Float = 0f
+
         @SerializedName("USDANG")
-        val uSDANG: Double = 0.0,
+        var USDANG: Float = 0f
+
         @SerializedName("USDAOA")
-        val uSDAOA: Double = 0.0,
+        var USDAOA: Float = 0f
+
         @SerializedName("USDARS")
-        val uSDARS: Double = 0.0,
+        var USDARS: Float = 0f
+
         @SerializedName("USDAUD")
-        val uSDAUD: Double = 0.0,
+        var USDAUD: Float = 0f
+
         @SerializedName("USDAWG")
-        val uSDAWG: Double = 0.0,
+        var USDAWG: Float = 0f
+
         @SerializedName("USDAZN")
-        val uSDAZN: Double = 0.0,
+        var USDAZN: Float = 0f
+
         @SerializedName("USDBAM")
-        val uSDBAM: Double = 0.0,
+        var USDBAM: Float = 0f
+
         @SerializedName("USDBBD")
-        val uSDBBD: Double = 0.0,
+        var USDBBD: Float = 0f
+
         @SerializedName("USDBDT")
-        val uSDBDT: Double = 0.0,
+        var USDBDT: Float = 0f
+
         @SerializedName("USDBGN")
-        val uSDBGN: Double = 0.0,
+        var USDBGN: Float = 0f
+
         @SerializedName("USDBHD")
-        val uSDBHD: Double = 0.0,
+        var USDBHD: Float = 0f
+
         @SerializedName("USDBIF")
-        val uSDBIF: Double = 0.0,
+        var USDBIF: Float = 0f
+
         @SerializedName("USDBMD")
-        val uSDBMD: Int = 0,
+        var USDBMD: Float = 0f
+
         @SerializedName("USDBND")
-        val uSDBND: Double = 0.0,
+        var USDBND: Float = 0f
+
         @SerializedName("USDBOB")
-        val uSDBOB: Double = 0.0,
+        var USDBOB: Float = 0f
+
         @SerializedName("USDBRL")
-        val uSDBRL: Double = 0.0,
+        var USDBRL: Float = 0f
+
         @SerializedName("USDBSD")
-        val uSDBSD: Double = 0.0,
+        var USDBSD: Float = 0f
+
         @SerializedName("USDBTC")
-        val uSDBTC: Double = 0.0,
+        var USDBTC: Float = 0f
+
         @SerializedName("USDBTN")
-        val uSDBTN: Double = 0.0,
+        var USDBTN: Float = 0f
+
         @SerializedName("USDBWP")
-        val uSDBWP: Double = 0.0,
+        var USDBWP: Float = 0f
+
         @SerializedName("USDBYN")
-        val uSDBYN: Double = 0.0,
+        var USDBYN: Float = 0f
+
         @SerializedName("USDBYR")
-        val uSDBYR: Int = 0,
+        var USDBYR: Float = 0f
+
         @SerializedName("USDBZD")
-        val uSDBZD: Double = 0.0,
+        var USDBZD: Float = 0f
+
         @SerializedName("USDCAD")
-        val uSDCAD: Double = 0.0,
+        var USDCAD: Float = 0f
+
         @SerializedName("USDCDF")
-        val uSDCDF: Double = 0.0,
+        var USDCDF: Float = 0f
+
         @SerializedName("USDCHF")
-        val uSDCHF: Double = 0.0,
+        var USDCHF: Float = 0f
+
         @SerializedName("USDCLF")
-        val uSDCLF: Double = 0.0,
+        var USDCLF: Float = 0f
+
         @SerializedName("USDCLP")
-        val uSDCLP: Double = 0.0,
+        var USDCLP: Float = 0f
+
         @SerializedName("USDCNY")
-        val uSDCNY: Double = 0.0,
+        var USDCNY: Float = 0f
+
         @SerializedName("USDCOP")
-        val uSDCOP: Double = 0.0,
+        var USDCOP: Float = 0f
+
         @SerializedName("USDCRC")
-        val uSDCRC: Double = 0.0,
+        var USDCRC: Float = 0f
+
         @SerializedName("USDCUC")
-        val uSDCUC: Int = 0,
+        var USDCUC: Float = 0f
+
         @SerializedName("USDCUP")
-        val uSDCUP: Double = 0.0,
+        var USDCUP: Float = 0f
+
         @SerializedName("USDCVE")
-        val uSDCVE: Double = 0.0,
+        var USDCVE: Float = 0f
+
         @SerializedName("USDCZK")
-        val uSDCZK: Double = 0.0,
+        var USDCZK: Float = 0f
+
         @SerializedName("USDDJF")
-        val uSDDJF: Double = 0.0,
+        var USDDJF: Float = 0f
+
         @SerializedName("USDDKK")
-        val uSDDKK: Double = 0.0,
+        var USDDKK: Float = 0f
+
         @SerializedName("USDDOP")
-        val uSDDOP: Double = 0.0,
+        var USDDOP: Float = 0f
+
         @SerializedName("USDDZD")
-        val uSDDZD: Double = 0.0,
+        var USDDZD: Float = 0f
+
         @SerializedName("USDEGP")
-        val uSDEGP: Double = 0.0,
+        var USDEGP: Float = 0f
+
         @SerializedName("USDERN")
-        val uSDERN: Double = 0.0,
+        var USDERN: Float = 0f
+
         @SerializedName("USDETB")
-        val uSDETB: Double = 0.0,
+        var USDETB: Float = 0f
+
         @SerializedName("USDEUR")
-        val uSDEUR: Double = 0.0,
+        var USDEUR: Float = 0f
+
         @SerializedName("USDFJD")
-        val uSDFJD: Double = 0.0,
+        var USDFJD: Float = 0f
+
         @SerializedName("USDFKP")
-        val uSDFKP: Double = 0.0,
+        var USDFKP: Float = 0f
+
         @SerializedName("USDGBP")
-        val uSDGBP: Double = 0.0,
+        var USDGBP: Float = 0f
+
         @SerializedName("USDGEL")
-        val uSDGEL: Double = 0.0,
+        var USDGEL: Float = 0f
+
         @SerializedName("USDGGP")
-        val uSDGGP: Double = 0.0,
+        var USDGGP: Float = 0f
+
         @SerializedName("USDGHS")
-        val uSDGHS: Double = 0.0,
+        var USDGHS: Float = 0f
+
         @SerializedName("USDGIP")
-        val uSDGIP: Double = 0.0,
+        var USDGIP: Float = 0f
+
         @SerializedName("USDGMD")
-        val uSDGMD: Double = 0.0,
+        var USDGMD: Float = 0f
+
         @SerializedName("USDGNF")
-        val uSDGNF: Double = 0.0,
+        var USDGNF: Float = 0f
+
         @SerializedName("USDGTQ")
-        val uSDGTQ: Double = 0.0,
+        var USDGTQ: Float = 0f
+
         @SerializedName("USDGYD")
-        val uSDGYD: Double = 0.0,
+        var USDGYD: Float = 0f
+
         @SerializedName("USDHKD")
-        val uSDHKD: Double = 0.0,
+        var USDHKD: Float = 0f
+
         @SerializedName("USDHNL")
-        val uSDHNL: Double = 0.0,
+        var USDHNL: Float = 0f
+
         @SerializedName("USDHRK")
-        val uSDHRK: Double = 0.0,
+        var USDHRK: Float = 0f
+
         @SerializedName("USDHTG")
-        val uSDHTG: Double = 0.0,
+        var USDHTG: Float = 0f
+
         @SerializedName("USDHUF")
-        val uSDHUF: Double = 0.0,
+        var USDHUF: Float = 0f
+
         @SerializedName("USDIDR")
-        val uSDIDR: Double = 0.0,
+        var USDIDR: Float = 0f
+
         @SerializedName("USDILS")
-        val uSDILS: Double = 0.0,
+        var USDILS: Float = 0f
+
         @SerializedName("USDIMP")
-        val uSDIMP: Double = 0.0,
+        var USDIMP: Float = 0f
+
         @SerializedName("USDINR")
-        val uSDINR: Double = 0.0,
+        var USDINR: Float = 0f
+
         @SerializedName("USDIQD")
-        val uSDIQD: Double = 0.0,
+        var USDIQD: Float = 0f
+
         @SerializedName("USDIRR")
-        val uSDIRR: Double = 0.0,
+        var USDIRR: Float = 0f
+
         @SerializedName("USDISK")
-        val uSDISK: Double = 0.0,
+        var USDISK: Float = 0f
+
         @SerializedName("USDJEP")
-        val uSDJEP: Double = 0.0,
+        var USDJEP: Float = 0f
+
         @SerializedName("USDJMD")
-        val uSDJMD: Double = 0.0,
+        var USDJMD: Float = 0f
+
         @SerializedName("USDJOD")
-        val uSDJOD: Double = 0.0,
+        var USDJOD: Float = 0f
+
         @SerializedName("USDJPY")
-        val uSDJPY: Double = 0.0,
+        var USDJPY: Float = 0f
+
         @SerializedName("USDKES")
-        val uSDKES: Double = 0.0,
+        var USDKES: Float = 0f
+
         @SerializedName("USDKGS")
-        val uSDKGS: Double = 0.0,
+        var USDKGS: Float = 0f
+
         @SerializedName("USDKHR")
-        val uSDKHR: Double = 0.0,
+        var USDKHR: Float = 0f
+
         @SerializedName("USDKMF")
-        val uSDKMF: Double = 0.0,
+        var USDKMF: Float = 0f
+
         @SerializedName("USDKPW")
-        val uSDKPW: Double = 0.0,
+        var USDKPW: Float = 0f
+
         @SerializedName("USDKRW")
-        val uSDKRW: Double = 0.0,
+        var USDKRW: Float = 0f
+
         @SerializedName("USDKWD")
-        val uSDKWD: Double = 0.0,
+        var USDKWD: Float = 0f
+
         @SerializedName("USDKYD")
-        val uSDKYD: Double = 0.0,
+        var USDKYD: Float = 0f
+
         @SerializedName("USDKZT")
-        val uSDKZT: Double = 0.0,
+        var USDKZT: Float = 0f
+
         @SerializedName("USDLAK")
-        val uSDLAK: Double = 0.0,
+        var USDLAK: Float = 0f
+
         @SerializedName("USDLBP")
-        val uSDLBP: Double = 0.0,
+        var USDLBP: Float = 0f
+
         @SerializedName("USDLKR")
-        val uSDLKR: Double = 0.0,
+        var USDLKR: Float = 0f
+
         @SerializedName("USDLRD")
-        val uSDLRD: Double = 0.0,
+        var USDLRD: Float = 0f
+
         @SerializedName("USDLSL")
-        val uSDLSL: Double = 0.0,
+        var USDLSL: Float = 0f
+
         @SerializedName("USDLTL")
-        val uSDLTL: Double = 0.0,
+        var USDLTL: Float = 0f
+
         @SerializedName("USDLVL")
-        val uSDLVL: Double = 0.0,
+        var USDLVL: Float = 0f
+
         @SerializedName("USDLYD")
-        val uSDLYD: Double = 0.0,
+        var USDLYD: Float = 0f
+
         @SerializedName("USDMAD")
-        val uSDMAD: Double = 0.0,
+        var USDMAD: Float = 0f
+
         @SerializedName("USDMDL")
-        val uSDMDL: Double = 0.0,
+        var USDMDL: Float = 0f
+
         @SerializedName("USDMGA")
-        val uSDMGA: Double = 0.0,
+        var USDMGA: Float = 0f
+
         @SerializedName("USDMKD")
-        val uSDMKD: Double = 0.0,
+        var USDMKD: Float = 0f
+
         @SerializedName("USDMMK")
-        val uSDMMK: Double = 0.0,
+        var USDMMK: Float = 0f
+
         @SerializedName("USDMNT")
-        val uSDMNT: Double = 0.0,
+        var USDMNT: Float = 0f
+
         @SerializedName("USDMOP")
-        val uSDMOP: Double = 0.0,
+        var USDMOP: Float = 0f
+
         @SerializedName("USDMRO")
-        val uSDMRO: Double = 0.0,
+        var USDMRO: Float = 0f
+
         @SerializedName("USDMUR")
-        val uSDMUR: Double = 0.0,
+        var USDMUR: Float = 0f
+
         @SerializedName("USDMVR")
-        val uSDMVR: Double = 0.0,
+        var USDMVR: Float = 0f
+
         @SerializedName("USDMWK")
-        val uSDMWK: Double = 0.0,
+        var USDMWK: Float = 0f
+
         @SerializedName("USDMXN")
-        val uSDMXN: Double = 0.0,
+        var USDMXN: Float = 0f
+
         @SerializedName("USDMYR")
-        val uSDMYR: Double = 0.0,
+        var USDMYR: Float = 0f
+
         @SerializedName("USDMZN")
-        val uSDMZN: Double = 0.0,
+        var USDMZN: Float = 0f
+
         @SerializedName("USDNAD")
-        val uSDNAD: Double = 0.0,
+        var USDNAD: Float = 0f
+
         @SerializedName("USDNGN")
-        val uSDNGN: Double = 0.0,
+        var USDNGN: Float = 0f
+
         @SerializedName("USDNIO")
-        val uSDNIO: Double = 0.0,
+        var USDNIO: Float = 0f
+
         @SerializedName("USDNOK")
-        val uSDNOK: Double = 0.0,
+        var USDNOK: Float = 0f
+
         @SerializedName("USDNPR")
-        val uSDNPR: Double = 0.0,
+        var USDNPR: Float = 0f
+
         @SerializedName("USDNZD")
-        val uSDNZD: Double = 0.0,
+        var USDNZD: Float = 0f
+
         @SerializedName("USDOMR")
-        val uSDOMR: Double = 0.0,
+        var USDOMR: Float = 0f
+
         @SerializedName("USDPAB")
-        val uSDPAB: Double = 0.0,
+        var USDPAB: Float = 0f
+
         @SerializedName("USDPEN")
-        val uSDPEN: Double = 0.0,
+        var USDPEN: Float = 0f
+
         @SerializedName("USDPGK")
-        val uSDPGK: Double = 0.0,
+        var USDPGK: Float = 0f
+
         @SerializedName("USDPHP")
-        val uSDPHP: Double = 0.0,
+        var USDPHP: Float = 0f
+
         @SerializedName("USDPKR")
-        val uSDPKR: Double = 0.0,
+        var USDPKR: Float = 0f
+
         @SerializedName("USDPLN")
-        val uSDPLN: Double = 0.0,
+        var USDPLN: Float = 0f
+
         @SerializedName("USDPYG")
-        val uSDPYG: Double = 0.0,
+        var USDPYG: Float = 0f
+
         @SerializedName("USDQAR")
-        val uSDQAR: Double = 0.0,
+        var USDQAR: Float = 0f
+
         @SerializedName("USDRON")
-        val uSDRON: Double = 0.0,
+        var USDRON: Float = 0f
+
         @SerializedName("USDRSD")
-        val uSDRSD: Double = 0.0,
+        var USDRSD: Float = 0f
+
         @SerializedName("USDRUB")
-        val uSDRUB: Double = 0.0,
+        var USDRUB: Float = 0f
+
         @SerializedName("USDRWF")
-        val uSDRWF: Double = 0.0,
+        var USDRWF: Float = 0f
+
         @SerializedName("USDSAR")
-        val uSDSAR: Double = 0.0,
+        var USDSAR: Float = 0f
+
         @SerializedName("USDSBD")
-        val uSDSBD: Double = 0.0,
+        var USDSBD: Float = 0f
+
         @SerializedName("USDSCR")
-        val uSDSCR: Double = 0.0,
+        var USDSCR: Float = 0f
+
         @SerializedName("USDSDG")
-        val uSDSDG: Double = 0.0,
+        var USDSDG: Float = 0f
+
         @SerializedName("USDSEK")
-        val uSDSEK: Double = 0.0,
+        var USDSEK: Float = 0f
+
         @SerializedName("USDSGD")
-        val uSDSGD: Double = 0.0,
+        var USDSGD: Float = 0f
+
         @SerializedName("USDSHP")
-        val uSDSHP: Double = 0.0,
+        var USDSHP: Float = 0f
+
         @SerializedName("USDSLL")
-        val uSDSLL: Double = 0.0,
+        var USDSLL: Float = 0f
+
         @SerializedName("USDSOS")
-        val uSDSOS: Double = 0.0,
+        var USDSOS: Float = 0f
+
         @SerializedName("USDSRD")
-        val uSDSRD: Double = 0.0,
+        var USDSRD: Float = 0f
+
         @SerializedName("USDSTD")
-        val uSDSTD: Double = 0.0,
+        var USDSTD: Float = 0f
+
         @SerializedName("USDSVC")
-        val uSDSVC: Double = 0.0,
+        var USDSVC: Float = 0f
+
         @SerializedName("USDSYP")
-        val uSDSYP: Double = 0.0,
+        var USDSYP: Float = 0f
+
         @SerializedName("USDSZL")
-        val uSDSZL: Double = 0.0,
+        var USDSZL: Float = 0f
+
         @SerializedName("USDTHB")
-        val uSDTHB: Double = 0.0,
+        var USDTHB: Float = 0f
+
         @SerializedName("USDTJS")
-        val uSDTJS: Double = 0.0,
+        var USDTJS: Float = 0f
+
         @SerializedName("USDTMT")
-        val uSDTMT: Double = 0.0,
+        var USDTMT: Float = 0f
+
         @SerializedName("USDTND")
-        val uSDTND: Double = 0.0,
+        var USDTND: Float = 0f
+
         @SerializedName("USDTOP")
-        val uSDTOP: Double = 0.0,
+        var USDTOP: Float = 0f
+
         @SerializedName("USDTRY")
-        val uSDTRY: Double = 0.0,
+        var USDTRY: Float = 0f
+
         @SerializedName("USDTTD")
-        val uSDTTD: Double = 0.0,
+        var USDTTD: Float = 0f
+
         @SerializedName("USDTWD")
-        val uSDTWD: Double = 0.0,
+        var USDTWD: Float = 0f
+
         @SerializedName("USDTZS")
-        val uSDTZS: Double = 0.0,
+        var USDTZS: Float = 0f
+
         @SerializedName("USDUAH")
-        val uSDUAH: Double = 0.0,
+        var USDUAH: Float = 0f
+
         @SerializedName("USDUGX")
-        val uSDUGX: Double = 0.0,
+        var USDUGX: Float = 0f
+
         @SerializedName("USDUSD")
-        val uSDUSD: Int = 0,
+        var USDUSD: Float = 0f
+
         @SerializedName("USDUYU")
-        val uSDUYU: Double = 0.0,
+        var USDUYU: Float = 0f
+
         @SerializedName("USDUZS")
-        val uSDUZS: Double = 0.0,
+        var USDUZS: Float = 0f
+
         @SerializedName("USDVEF")
-        val uSDVEF: Double = 0.0,
+        var USDVEF: Float = 0f
+
         @SerializedName("USDVND")
-        val uSDVND: Int = 0,
+        var USDVND: Float = 0f
+
         @SerializedName("USDVUV")
-        val uSDVUV: Double = 0.0,
+        var USDVUV: Float = 0f
+
         @SerializedName("USDWST")
-        val uSDWST: Double = 0.0,
+        var USDWST: Float = 0f
+
         @SerializedName("USDXAF")
-        val uSDXAF: Double = 0.0,
+        var USDXAF: Float = 0f
+
         @SerializedName("USDXAG")
-        val uSDXAG: Double = 0.0,
+        var USDXAG: Float = 0f
+
         @SerializedName("USDXAU")
-        val uSDXAU: Double = 0.0,
+        var USDXAU: Float = 0f
+
         @SerializedName("USDXCD")
-        val uSDXCD: Double = 0.0,
+        var USDXCD: Float = 0f
+
         @SerializedName("USDXDR")
-        val uSDXDR: Double = 0.0,
+        var USDXDR: Float = 0f
+
         @SerializedName("USDXOF")
-        val uSDXOF: Double = 0.0,
+        var USDXOF: Float = 0f
+
         @SerializedName("USDXPF")
-        val uSDXPF: Double = 0.0,
+        var USDXPF: Float = 0f
+
         @SerializedName("USDYER")
-        val uSDYER: Double = 0.0,
+        var USDYER: Float = 0f
+
         @SerializedName("USDZAR")
-        val uSDZAR: Double = 0.0,
+        var USDZAR: Float = 0f
+
         @SerializedName("USDZMK")
-        val uSDZMK: Double = 0.0,
+        var USDZMK: Float = 0f
+
         @SerializedName("USDZMW")
-        val uSDZMW: Double = 0.0,
+        var USDZMW: Float = 0f
+
         @SerializedName("USDZWL")
-        val uSDZWL: Double = 0.0
-    )
+        var USDZWL: Float = 0f
+    }
 }

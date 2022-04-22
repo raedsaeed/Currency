@@ -1,7 +1,7 @@
 package com.raed.currency.domain
 
 import com.raed.currency.data.ViewState
-import com.raed.currency.data.models.LatestResponse
+import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.domain.interfaces.IConvertUseCase
 import com.raed.currency.utils.CurrencyUtils
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ class ConvertUseCase @Inject constructor() : IConvertUseCase {
     override suspend fun getExchangeRatesForCurrency(
         base: String,
         topCurrencies: List<String>,
-        quotes: LatestResponse.Quotes
+        quotes: CurrencyResponse.Quotes
     ): Flow<ViewState> = flow {
         emit(ViewState.Loading)
         val exchangeRates = CurrencyUtils.getExchangeRatesForCurrency(base, topCurrencies, quotes)

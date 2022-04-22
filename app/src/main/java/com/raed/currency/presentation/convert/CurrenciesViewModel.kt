@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raed.currency.data.ViewState
-import com.raed.currency.data.models.LatestResponse
+import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.domain.ConvertUseCase
 import com.raed.currency.domain.interfaces.IHistoricalUseCase
 import com.raed.currency.domain.interfaces.ILatestUseCase
@@ -50,7 +50,7 @@ class CurrenciesViewModel @Inject constructor(
         }
     }
     
-    fun getExchangeRates(base: String, topCurrencies : List<String>, quotes : LatestResponse.Quotes) {
+    fun getExchangeRates(base: String, topCurrencies : List<String>, quotes : CurrencyResponse.Quotes) {
         viewModelScope.launch {
             convertUseCase.getExchangeRatesForCurrency(base, topCurrencies, quotes).collect {
                 convertedLivedData.postValue(it)

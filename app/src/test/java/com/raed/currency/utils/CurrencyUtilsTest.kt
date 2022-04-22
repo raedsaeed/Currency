@@ -1,7 +1,7 @@
 package com.raed.currency.utils
 
 import com.google.common.truth.Truth.assertThat
-import com.raed.currency.data.models.LatestResponse
+import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.presentation.uimodels.UICurrency
 import org.junit.Test
 
@@ -11,8 +11,8 @@ import org.junit.Test
 class CurrencyUtilsTest {
     @Test
     fun getValueOfSymbol_different_returnsZero() {
-        val aed = LatestResponse.Quotes()
-        aed.uSDAED = 4.5f
+        val aed = CurrencyResponse.Quotes()
+        aed.USDAED = 4.5f
         val value = CurrencyUtils.getValueOfSymbol("USD", aed)
         assertThat(value).isEqualTo(0f)
     }
@@ -25,18 +25,18 @@ class CurrencyUtilsTest {
 
     @Test
     fun getValueOfSymbol_full_returnsData() {
-        val aed = LatestResponse.Quotes()
-        aed.uSDAED = 4.5f
+        val aed = CurrencyResponse.Quotes()
+        aed.USDAED = 4.5f
         val value = CurrencyUtils.getValueOfSymbol("AED", aed)
         assertThat(value).isEqualTo(4.5f)
     }
 
     @Test
     fun getUICurrency_full_returnFullData() {
-        val quote = LatestResponse.Quotes()
-        quote.uSDAED = 4.5f
-        quote.uSDEGP = 18.5f
-        quote.uSDUSD = 1f
+        val quote = CurrencyResponse.Quotes()
+        quote.USDAED = 4.5f
+        quote.USDEGP = 18.5f
+        quote.USDUSD = 1f
         val newList = CurrencyUtils.convertToUICurrency(quote)
         assertThat(newList.size).isEqualTo(3)
     }
@@ -102,12 +102,12 @@ class CurrencyUtilsTest {
 
     @Test
     fun convertCurrencyToTop10_1EGPtoTryAedCad_returnsCorrectValue() {
-        val quotes = LatestResponse.Quotes()
-        quotes.uSDUSD = 1f
-        quotes.uSDEGP = 18.53f
-        quotes.uSDGBP = 0.774525f
-        quotes.uSDAED = 3.673099f
-        quotes.uSDSAR = 3.750463f
+        val quotes = CurrencyResponse.Quotes()
+        quotes.USDUSD = 1f
+        quotes.USDEGP = 18.53f
+        quotes.USDGBP = 0.774525f
+        quotes.USDAED = 3.673099f
+        quotes.USDSAR = 3.750463f
         val topCurrencies = listOf("USD", "GBP", "AED", "SAR")
         val exchangeRates = CurrencyUtils.getExchangeRatesForCurrency("EGP", topCurrencies, quotes)
         assertThat(exchangeRates.size).isEqualTo(topCurrencies.size)

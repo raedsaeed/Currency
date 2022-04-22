@@ -1,7 +1,7 @@
 package com.raed.currency.utils
 
 import com.google.gson.Gson
-import com.raed.currency.data.models.LatestResponse
+import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.presentation.uimodels.UICurrency
 import org.json.JSONObject
 import java.util.*
@@ -11,12 +11,12 @@ import java.util.*
  * Created By Raed Saeed on 22/04/2022
  */
 object CurrencyUtils {
-    fun getValueOfSymbol(base: String, quotes: LatestResponse.Quotes?): Float {
+    fun getValueOfSymbol(base: String, quotes: CurrencyResponse.Quotes?): Float {
         quotes?.let {
             val json = JSONObject(
                 Gson().toJson(
                     quotes,
-                    LatestResponse.Quotes::class.java
+                    CurrencyResponse.Quotes::class.java
                 )
             )
 
@@ -31,13 +31,13 @@ object CurrencyUtils {
         return 0f
     }
 
-    fun convertToUICurrency(item: LatestResponse.Quotes?): List<UICurrency> {
+    fun convertToUICurrency(item: CurrencyResponse.Quotes?): List<UICurrency> {
         if (item == null) return emptyList()
 
         val json = JSONObject(
             Gson().toJson(
                 item,
-                LatestResponse.Quotes::class.java
+                CurrencyResponse.Quotes::class.java
             )
         ) // convert the retrieved object to json format for key and value
 
@@ -57,14 +57,14 @@ object CurrencyUtils {
     fun getExchangeRatesForCurrency(
         base: String,
         topCurrencies: List<String>,
-        quotes: LatestResponse.Quotes?
+        quotes: CurrencyResponse.Quotes?
     ): List<UICurrency> {
         if (quotes == null) return emptyList()
 
         val json = JSONObject(
             Gson().toJson(
                 quotes,
-                LatestResponse.Quotes::class.java
+                CurrencyResponse.Quotes::class.java
             )
         ) // convert the retrieved object to json format for key and value
 

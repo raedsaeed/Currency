@@ -1,7 +1,7 @@
 package com.raed.currency.domain
 
 import com.raed.currency.data.ViewState
-import com.raed.currency.data.models.LatestResponse
+import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.data.repo.CurrencyRepo
 import com.raed.currency.domain.interfaces.IHistoricalUseCase
 import com.raed.currency.presentation.uimodels.UICurrency
@@ -26,7 +26,7 @@ class HistoricalUseCase @Inject constructor(private val repo: CurrencyRepo) : IH
         flow {
             emit(ViewState.Loading)
             val dateList = ArrayList<UICurrency>()
-            var latestResponse: LatestResponse? = null
+            var currencyResponse: CurrencyResponse? = null
             val result = HashMap<String, ViewState>()
             coroutineScope {
                 (0..2).map { day ->
@@ -47,7 +47,7 @@ class HistoricalUseCase @Inject constructor(private val repo: CurrencyRepo) : IH
                         // since we have limited api calling we just need to call it
                         // and assign it to local variable
                         if (day == 0) {
-                            latestResponse = history
+                            currencyResponse = history
                         }
                     }
                 }

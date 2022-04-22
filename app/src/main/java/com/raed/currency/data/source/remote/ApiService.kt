@@ -1,6 +1,6 @@
 package com.raed.currency.data.source.remote
 
-import com.raed.currency.data.models.LatestResponse
+import com.raed.currency.data.models.CurrencyResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,8 +10,8 @@ import retrofit2.http.Query
  */
 interface ApiService {
     @GET("live")
-    suspend fun getLatest(@Query("access_key") accessKey: String): LatestResponse
+    suspend fun getLatest(@Query("access_key") accessKey: String): CurrencyResponse
 
     @GET("historical")
-    suspend fun getHistorical(@Query("access_key") apiKey: String) : LatestResponse
+    suspend fun getHistorical(@Query("access_key") apiKey: String) : CurrencyResponse
 }
