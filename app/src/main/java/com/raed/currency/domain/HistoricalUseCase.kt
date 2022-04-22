@@ -1,6 +1,7 @@
 package com.raed.currency.domain
 
 import com.raed.currency.data.ViewState
+import com.raed.currency.data.models.LatestResponse
 import com.raed.currency.data.repo.CurrencyRepo
 import com.raed.currency.domain.interfaces.IHistoricalUseCase
 import com.raed.currency.presentation.uimodels.UICurrency
@@ -22,9 +23,11 @@ import javax.inject.Inject
  */
 class HistoricalUseCase @Inject constructor(private val repo: CurrencyRepo) : IHistoricalUseCase {
     override suspend fun getHistoricalInfo(base: String): Flow<ViewState> =
-        flow<ViewState> {
+        flow {
             emit(ViewState.Loading)
             val dateList = ArrayList<UICurrency>()
+            var latestResponse: LatestResponse? = null
+            val result = HashMap<String, ViewState>()
             coroutineScope {
                 (0..2).map { day ->
                     withContext(Dispatchers.IO) {
@@ -40,8 +43,18 @@ class HistoricalUseCase @Inject constructor(private val repo: CurrencyRepo) : IH
                                 date
                             )
                         )
+
+                        // since we have limited api calling we just need to call it
+                        // and assign it to local variable
+                        if (day == 0) {
+                            latestResponse = history
+                        }
                     }
                 }
+//                result["currency_days"] = ViewState.Success<List<UICurrency>>(dateList)
+//                result["quotes"] = ViewState.Success(latestResponse?.quotes)
+//                emit(ViewState.Success(result))
+                emit(ViewState.Success<List<UICurrency>>(dateList))
             }
         }
             .catch { error ->

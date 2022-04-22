@@ -99,4 +99,17 @@ class CurrencyUtilsTest {
         )
         assertThat(value).isEqualTo(0.7960172f)
     }
+
+    @Test
+    fun convertCurrencyToTop10_1EGPtoTryAedCad_returnsCorrectValue() {
+        val quotes = LatestResponse.Quotes()
+        quotes.uSDUSD = 1f
+        quotes.uSDEGP = 18.53f
+        quotes.uSDGBP = 0.774525f
+        quotes.uSDAED = 3.673099f
+        quotes.uSDSAR = 3.750463f
+        val topCurrencies = listOf("USD", "GBP", "AED", "SAR")
+        val exchangeRates = CurrencyUtils.getExchangeRatesForCurrency("EGP", topCurrencies, quotes)
+        assertThat(exchangeRates.size).isEqualTo(topCurrencies.size)
+    }
 }

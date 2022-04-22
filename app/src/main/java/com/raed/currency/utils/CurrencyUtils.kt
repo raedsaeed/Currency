@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.raed.currency.data.models.LatestResponse
 import com.raed.currency.presentation.uimodels.UICurrency
 import org.json.JSONObject
+import java.util.*
 
 
 /**
@@ -53,14 +54,50 @@ object CurrencyUtils {
         return labels
     }
 
+    fun getExchangeRatesForCurrency(
+        base: String,
+        topCurrencies: List<String>,
+        quotes: LatestResponse.Quotes?
+    ): List<UICurrency> {
+        if (quotes == null) return emptyList()
+
+        val json = JSONObject(
+            Gson().toJson(
+                quotes,
+                LatestResponse.Quotes::class.java
+            )
+        ) // convert the retrieved object to json format for key and value
+
+
+        val alternativeCurrencies = ArrayList<UICurrency>()
+
+        val toValue = (json.opt("USD${base.uppercase(Locale.getDefault())}") as Double).toFloat()
+        topCurrencies.forEach {
+            val baseValue = (json.opt("USD${it.uppercase(Locale.getDefault())}") as Double).toFloat()
+            alternativeCurrencies.add(UICurrency(it, calculateExchangeRate(baseValue, toValue)))
+        }
+
+        return alternativeCurrencies
+    }
+
     fun convertToBaseCurrency(amount: Float, base: UICurrency?, to: UICurrency?): Float {
         if (amount <= 0f || base == null || to == null) return 0f
-        return ((base.value / to.value) * amount)
+        return convertToBaseCurrency(amount, base.value, to.value)
+    }
+
+    private fun convertToBaseCurrency(amount: Float, base: Float?, to: Float?): Float {
+        if (to == null || base == null || amount < 0f) return 0f
+        return ((base / to) * amount)
     }
 
     fun convertBaseToAnotherCurrency(amount: Float, base: UICurrency?, to: UICurrency?): Float {
         if (amount <= 0f || base == null || to == null) return 0f
-        return (base.value * to.value * amount)
+        return convertBaseToAnotherCurrency(amount, base.value, to.value)
+    }
+
+    private fun convertBaseToAnotherCurrency(amount: Float, base: Float?, to: Float?): Float {
+        if (amount <= 0f || base == null || to == null) return 0f
+        return base * to * amount
     }
 
     fun convertAssetToAnother(
@@ -79,5 +116,15 @@ object CurrencyUtils {
             base,
             to
         )
+    }
+
+    private fun calculateExchangeRate(from: Float?, to: Float?): Float {
+        val baseValue = convertToBaseCurrency(
+            1f,
+            1f,
+            from
+        )
+
+        return convertBaseToAnotherCurrency(baseValue.toFloatOrZero(), 1f, to)
     }
 }
