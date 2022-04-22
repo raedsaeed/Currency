@@ -3,7 +3,7 @@ package com.raed.currency.di
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.raed.currency.data.source.local.ApiService
+import com.raed.currency.data.source.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
