@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="RoundedShape12dp">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp12</item>
+    </style>
+
     <style name="RoundedShape24dp">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">@dimen/dp24</item>
-        <item name="cornerSizeTopRight">@dimen/dp24</item>
+        <item name="cornerSize">@dimen/dp24</item>
+    </style>
+
+    <style name="CircleShape">
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

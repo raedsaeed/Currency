@@ -2,4 +2,9 @@
     <string name="app_name">Currency</string>
     <string name="currency">Currency</string>
     <string name="historical_info">Historical Info</string>
+    <string name="details">Details</string>
+    <string name="amount">Amount</string>
+    <string name="rate">Rate</string>
+    <string name="city_hint">Search</string>
+    <string name="exchange_rates">Exchange Rates</string>
 </resources>

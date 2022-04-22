@@ -29,6 +29,6 @@
     </style>
 
     <style name="RoundedBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/RoundedShape24dp</item>
+        <item name="shapeAppearanceOverlay">@style/RoundedShape12dp</item>
     </style>
 </resources>
