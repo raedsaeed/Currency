@@ -1,18 +1,18 @@
 package com.raed.currency.domain
 
+import com.raed.currency.R
 import com.raed.currency.data.ViewState
-import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.data.repo.CurrencyRepo
 import com.raed.currency.domain.interfaces.IHistoricalUseCase
 import com.raed.currency.presentation.uimodels.UICurrency
 import com.raed.currency.utils.CurrencyUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -26,39 +26,35 @@ class HistoricalUseCase @Inject constructor(private val repo: CurrencyRepo) : IH
         flow {
             emit(ViewState.Loading)
             val dateList = ArrayList<UICurrency>()
-            var currencyResponse: CurrencyResponse? = null
-            val result = HashMap<String, ViewState>()
             coroutineScope {
-                (0..2).map { day ->
-                    withContext(Dispatchers.IO) {
-                        val date = SimpleDateFormat(
-                            "yyyy-MM-dd",
-                            Locale.ENGLISH
-                        ).format(Calendar.getInstance().add(Calendar.DAY_OF_YEAR, -day))
-                        val history = repo.getHistorical(date)
-                        if (history.success) {
-                            dateList.add(
-                                UICurrency(
-                                    base,
-                                    CurrencyUtils.getValueOfSymbol(base, history.quotes),
-                                    date
-                                )
+                (1..3).forEach { day ->
+                    val calendar = Calendar.getInstance()
+                    calendar.add(Calendar.DAY_OF_YEAR, -day)
+                    val date = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                        .format(calendar.time)
+
+                    val history = repo.getHistorical(date)
+                    if (history.success) {
+                        dateList.add(
+                            UICurrency(
+                                base,
+                                CurrencyUtils.getValueOfSymbol(base, history.quotes),
+                                date
                             )
-                        } else {
-                            emit(ViewState.Error(Error(history.error?.info)))
-                        }
-
-
-                        // since we have limited api calling we just need to call it
-                        // and assign it to local variable
-                        if (day == 0) {
-                            currencyResponse = history
-                        }
+                        )
+                    } else {
+                        emit(ViewState.Error(Error(history.error?.info)))
                     }
+
+                    // Because API give error if I made 2 requests per second
+                    delay(1500)
+
                 }
-//                result["currency_days"] = ViewState.Success<List<UICurrency>>(dateList)
-//                result["quotes"] = ViewState.Success(latestResponse?.quotes)
-//                emit(ViewState.Success(result))
+
+                dateList.map {
+                    it.resourceId = R.layout.item_currency_history
+                    return@map it
+                }
                 emit(ViewState.Success<List<UICurrency>>(dateList))
             }
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,6 +79,7 @@ class ExchangeRateFragment : Fragment() {
 
     @Suppress("UNCHECKED_CAST")
     private fun populateUI(viewState: ViewState) {
+        binding.pbFragmentListLoading.isVisible = viewState is ViewState.Loading
         when (viewState) {
             is ViewState.Success<*> -> {
                 adapter.setItems(viewState.item as? List<BaseObject>)

@@ -13,5 +13,8 @@ interface ApiService {
     suspend fun getLatest(@Query("access_key") accessKey: String): CurrencyResponse
 
     @GET("historical")
-    suspend fun getHistorical(@Query("access_key") apiKey: String) : CurrencyResponse
+    suspend fun getHistorical(
+        @Query("access_key") apiKey: String,
+        @Query("date") date: String
+    ): CurrencyResponse
 }

@@ -15,6 +15,6 @@ class CurrencyRepo @Inject constructor(private val api: ApiService) : ICurrencyR
     }
 
     override suspend fun getHistorical(startDate: String): CurrencyResponse {
-        return api.getLatest(BuildConfig.API_KEY)
+        return api.getHistorical(BuildConfig.API_KEY, startDate)
     }
 }
