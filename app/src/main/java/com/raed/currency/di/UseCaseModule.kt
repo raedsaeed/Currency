@@ -23,7 +23,7 @@ class UseCaseModule {
     fun provideLatestUseCase(repo: CurrencyRepo): ILatestUseCase = LatestUseCase(repo)
 
     @Provides
-    fun provideConvertUseCase(repo: CurrencyRepo): IConvertUseCase = ConvertUseCase()
+    fun provideConvertUseCase(): IConvertUseCase = ConvertUseCase()
 
     @Provides
     fun provideHistoricalUseCase(repo: CurrencyRepo): IHistoricalUseCase = HistoricalUseCase(repo)
