@@ -19,18 +19,25 @@ import com.raed.currency.presentation.uimodels.UICurrency
  */
 class CurrencyListDialog : BottomSheetDialogFragment() {
     private lateinit var binding: DialogCurrencyListBinding
-    private lateinit var func: (currency: UICurrency) -> Unit
+    private lateinit var currencyListener: (currency: UICurrency) -> Unit
 
-    fun newInstance(
-        currencyList: List<BaseObject>,
-        func: (cur: UICurrency) -> Unit
-    ): CurrencyListDialog {
-        val args = Bundle()
-        args.putParcelableArrayList("currency_list", ArrayList(currencyList))
-        val fragment = CurrencyListDialog()
-        fragment.arguments = args
-        this.func = func
-        return fragment
+    fun setCurrencySelectListener(currencyListener: (cur: UICurrency) -> Unit) {
+        this.currencyListener = currencyListener
+    }
+
+    companion object {
+        fun newInstance(currencyList: List<BaseObject>?): CurrencyListDialog {
+            val args = Bundle()
+            args.putParcelableArrayList(
+                CURRENCY_LIST_KEY,
+                ArrayList(currencyList?.toMutableList() ?: emptyList())
+            )
+            val fragment = CurrencyListDialog()
+            fragment.arguments = args
+            return fragment
+        }
+
+        private const val CURRENCY_LIST_KEY = "currency_list"
     }
 
     override fun onCreateView(
@@ -43,22 +50,40 @@ class CurrencyListDialog : BottomSheetDialogFragment() {
 
         val adapter = CurrencyAdapter()
         adapter.setOnCurrencyClick { currency, _ ->
-            func.invoke(currency)
+            currencyListener.invoke(currency)
+            dismiss()
         }
 
         binding.rvDialogExchangeList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDialogExchangeList.adapter = adapter
 
-        val itemList = arguments?.getParcelableArrayList<BaseObject>("currency_list")
+        val itemList = arguments?.getParcelableArrayList<BaseObject>(CURRENCY_LIST_KEY)
         adapter.setItems(itemList)
 
         binding.etDialogExchangeSearch.doOnTextChanged { text, _, _, _ ->
             val newList = itemList?.filter {
-                (it as UICurrency).symbol?.contains(text.toString())!!
+                (it as UICurrency).symbol?.contains(text.toString(), true)!!
             }
             adapter.setItems(newList)
         }
 
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.root.layoutParams = getDialogLayoutParams()
+    }
+
+    private fun getDialogLayoutParams(): ViewGroup.LayoutParams {
+        val height = getHeight()
+        val layoutParams: ViewGroup.LayoutParams = binding.clDialogCurrencyList.layoutParams
+        layoutParams.height = height
+        return layoutParams
+    }
+
+    private fun getHeight(): Int {
+        return requireActivity().window?.decorView?.height?.div(2)!!
     }
 }

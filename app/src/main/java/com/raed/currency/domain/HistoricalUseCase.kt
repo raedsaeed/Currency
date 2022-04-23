@@ -36,13 +36,18 @@ class HistoricalUseCase @Inject constructor(private val repo: CurrencyRepo) : IH
                             Locale.ENGLISH
                         ).format(Calendar.getInstance().add(Calendar.DAY_OF_YEAR, -day))
                         val history = repo.getHistorical(date)
-                        dateList.add(
-                            UICurrency(
-                                base,
-                                CurrencyUtils.getValueOfSymbol(base, history.quotes),
-                                date
+                        if (history.success) {
+                            dateList.add(
+                                UICurrency(
+                                    base,
+                                    CurrencyUtils.getValueOfSymbol(base, history.quotes),
+                                    date
+                                )
                             )
-                        )
+                        } else {
+                            emit(ViewState.Error(Error(history.error?.info)))
+                        }
+
 
                         // since we have limited api calling we just need to call it
                         // and assign it to local variable

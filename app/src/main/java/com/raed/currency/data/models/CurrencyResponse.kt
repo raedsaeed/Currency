@@ -19,7 +19,9 @@ data class CurrencyResponse(
     @SerializedName("terms")
     var terms: String = "",
     @SerializedName("timestamp")
-    var timestamp: Int = 0
+    var timestamp: Int = 0,
+    @SerializedName("error")
+    var error : ApiError? = null
 ) {
     class Quotes {
         @SerializedName("USDAED")

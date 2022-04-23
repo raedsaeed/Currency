@@ -24,14 +24,14 @@ class CurrencyViewModel @Inject constructor(
     private val convertUseCase: ConvertUseCase
 ) : ViewModel() {
     private val currenciesLiveData = MutableLiveData<ViewState>()
-    val currenciesValue : LiveData<ViewState> = currenciesLiveData
+    val currenciesValue: LiveData<ViewState> = currenciesLiveData
 
 
     private val historicalLiveData = MutableLiveData<ViewState>()
-    val historicalValue : LiveData<ViewState> = historicalLiveData
+    val historicalValue: LiveData<ViewState> = historicalLiveData
 
     private val convertedLivedData = MutableLiveData<ViewState>()
-    val convertedValue : LiveData<ViewState> = convertedLivedData
+    val convertedValue: LiveData<ViewState> = convertedLivedData
 
 
     fun getUpdatedCurrencies() {
@@ -41,16 +41,20 @@ class CurrencyViewModel @Inject constructor(
             }
         }
     }
-    
-    fun getHistoricalInfo(base : String) {
+
+    fun getHistoricalInfo(base: String) {
         viewModelScope.launch {
             historicalUseCase.getHistoricalInfo(base).collect {
                 historicalLiveData.postValue(it)
             }
         }
     }
-    
-    fun getExchangeRates(base: String, topCurrencies : List<String>, quotes : CurrencyResponse.Quotes) {
+
+    fun getExchangeRates(
+        base: String,
+        topCurrencies: List<String>,
+        quotes: CurrencyResponse.Quotes
+    ) {
         viewModelScope.launch {
             convertUseCase.getExchangeRatesForCurrency(base, topCurrencies, quotes).collect {
                 convertedLivedData.postValue(it)

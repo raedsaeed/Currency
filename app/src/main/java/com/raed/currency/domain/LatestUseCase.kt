@@ -1,5 +1,6 @@
 package com.raed.currency.domain
 
+import com.raed.currency.R
 import com.raed.currency.data.ViewState
 import com.raed.currency.data.repo.CurrencyRepo
 import com.raed.currency.domain.interfaces.ILatestUseCase
@@ -19,7 +20,16 @@ class LatestUseCase @Inject constructor(private val repo: CurrencyRepo) : ILates
     override fun getUpdatedCurrencies(): Flow<ViewState> = flow {
         emit(ViewState.Loading)
         val response = repo.getLatest()
-        emit(ViewState.Success(CurrencyUtils.convertToUICurrency(response.quotes)))
+        if (response.success) {
+            val currencyList = CurrencyUtils.convertToUICurrency(response.quotes)
+                .map {
+                    it.resourceId = R.layout.item_currency
+                    return@map it
+                }
+            emit(ViewState.Success(currencyList))
+        } else {
+            emit(ViewState.Error(Error(response.error?.info)))
+        }
     }.catch { error ->
         emit(ViewState.Error(error))
         error.printStackTrace()
