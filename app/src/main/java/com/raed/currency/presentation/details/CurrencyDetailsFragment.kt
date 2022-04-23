@@ -18,6 +18,12 @@ class CurrencyDetailsFragment : Fragment() {
     private lateinit var binding: FragmentCurrencyDetailsBinding
     private lateinit var fragmentAdapter: DetailsFragmentAdapter
 
+    companion object {
+        const val CURRENCY_LIST = "currency_list"
+        const val USD_CURRENCY = "usd_currency"
+        const val FROM_CURRENCY = "from_currency"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,7 +34,10 @@ class CurrencyDetailsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentAdapter = DetailsFragmentAdapter(this)
+        fragmentAdapter = DetailsFragmentAdapter(
+            this,
+            arguments?.getParcelable(FROM_CURRENCY)
+        )
         binding.vpPager.adapter = fragmentAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.vpPager) { tab, position ->

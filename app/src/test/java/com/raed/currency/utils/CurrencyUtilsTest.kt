@@ -110,6 +110,28 @@ class CurrencyUtilsTest {
         quotes.USDSAR = 3.750463f
         val topCurrencies = listOf("USD", "GBP", "AED", "SAR")
         val exchangeRates = CurrencyUtils.getExchangeRatesForCurrency("EGP", topCurrencies, quotes)
+        println("Old")
+        exchangeRates.forEach {
+            println(it)
+        }
+        assertThat(exchangeRates.size).isEqualTo(topCurrencies.size)
+    }
+
+    @Test
+    fun convertCurrencyToTop10_1EGPToMultiList_returnsCorrectValue() {
+        val quotes = listOf(
+            UICurrency("USD", 1f),
+            UICurrency("EGP", 18.53f),
+            UICurrency("GBP", 0.774525f),
+            UICurrency("AED", 3.673099f),
+            UICurrency("SAR", 3.750463f)
+        )
+        val topCurrencies = listOf("USD", "GBP", "AED", "SAR")
+        val exchangeRates = CurrencyUtils.getExchangeRatesForCurrency("EGP", topCurrencies, quotes)
+        print("New")
+        exchangeRates.forEach {
+            println(it)
+        }
         assertThat(exchangeRates.size).isEqualTo(topCurrencies.size)
     }
 }

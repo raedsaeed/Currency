@@ -73,8 +73,27 @@ object CurrencyUtils {
 
         val toValue = (json.opt("USD${base.uppercase(Locale.getDefault())}") as Double).toFloat()
         topCurrencies.forEach {
-            val baseValue = (json.opt("USD${it.uppercase(Locale.getDefault())}") as Double).toFloat()
+            val baseValue =
+                (json.opt("USD${it.uppercase(Locale.getDefault())}") as Double).toFloat()
             alternativeCurrencies.add(UICurrency(it, calculateExchangeRate(baseValue, toValue)))
+        }
+
+        return alternativeCurrencies
+    }
+
+    fun getExchangeRatesForCurrency(
+        base: String,
+        topCurrencies: List<String>,
+        quotes: List<UICurrency>?
+    ): List<UICurrency> {
+        if (quotes == null || quotes.isEmpty()) return emptyList()
+
+        val alternativeCurrencies = ArrayList<UICurrency>()
+
+        val toValue = quotes.first { it.symbol == base }.value
+        topCurrencies.forEach { key ->
+            val baseValue = quotes.first { it.symbol == key }.value
+            alternativeCurrencies.add(UICurrency(key, calculateExchangeRate(baseValue, toValue)))
         }
 
         return alternativeCurrencies

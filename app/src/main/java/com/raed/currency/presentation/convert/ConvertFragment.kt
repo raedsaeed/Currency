@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.raed.currency.R
 import com.raed.currency.data.ViewState
 import com.raed.currency.databinding.FragmentConvertBinding
+import com.raed.currency.presentation.details.CurrencyDetailsFragment
 import com.raed.currency.presentation.uimodels.BaseObject
 import com.raed.currency.presentation.uimodels.UICurrency
 import com.raed.currency.utils.CurrencyUtils
+import com.raed.currency.utils.defaultNavOptions
 import com.raed.currency.utils.format
 import com.raed.currency.utils.toFloatOrZero
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +33,7 @@ class ConvertFragment : Fragment() {
     private val currencyViewModel: CurrencyViewModel by viewModels()
     private var currencyList: List<BaseObject>? = null
 
+    private var holderView: View? = null
     private var usdCurrency: UICurrency? = null
     private var fromCurrency: UICurrency? = null
     private var quoteCurrency: UICurrency? = null
@@ -36,7 +43,11 @@ class ConvertFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentConvertBinding.inflate(inflater, container, false)
+        if (holderView == null) {
+            holderView = inflater.inflate(R.layout.fragment_convert, container, false)
+        }
+
+        binding = DataBindingUtil.bind(holderView!!)!!
 
         currencyViewModel.currenciesValue.observe(viewLifecycleOwner) {
             populateUI(it)
@@ -45,6 +56,7 @@ class ConvertFragment : Fragment() {
         binding.btnFragmentConvertSwap.setOnClickListener {
             swapCurrency()
         }
+
         binding.etFragmentConvertBaseAmount.doOnTextChanged { text, _, _, _ ->
             findExchangeRate(text)
         }
@@ -67,12 +79,26 @@ class ConvertFragment : Fragment() {
             dialog.show(childFragmentManager, null)
         }
 
-        return binding.root
+        binding.btnFragmentConvertDetails.setOnClickListener {
+            findNavController().navigate(
+                R.id.details_fragment, bundleOf(
+                    CurrencyDetailsFragment.CURRENCY_LIST to currencyList,
+                    CurrencyDetailsFragment.USD_CURRENCY to usdCurrency,
+                    CurrencyDetailsFragment.FROM_CURRENCY to fromCurrency
+                ),
+                defaultNavOptions
+            )
+        }
+
+        return holderView!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchData()
+
+        if (currencyViewModel.currenciesValue.value == null) {
+            fetchData()
+        }
     }
 
     private fun fetchData() {
@@ -105,12 +131,23 @@ class ConvertFragment : Fragment() {
     private fun populateUI(currencyList: List<BaseObject>) {
         this.currencyList = currencyList
         usdCurrency = currencyList.first { (it as UICurrency).symbol == "USD" } as? UICurrency
-        fromCurrency = usdCurrency
-        quoteCurrency = currencyList.first { (it as UICurrency).symbol == "EGP" } as? UICurrency
-        populateCurrency("1", fromCurrency, quoteCurrency)
+
+        if (quoteCurrency == null) {
+            quoteCurrency = currencyList.first { (it as UICurrency).symbol == "EGP" } as? UICurrency
+        }
+        if (fromCurrency == null) {
+            fromCurrency = usdCurrency
+        }
+
+        val amount = binding.etFragmentConvertBaseAmount.text.toString().ifEmpty { "1" }
+        populateCurrency(amount, fromCurrency, quoteCurrency)
     }
 
-    private fun populateCurrency(amount : String, fromCurrency: UICurrency?, quoteCurrency: UICurrency?) {
+    private fun populateCurrency(
+        amount: String,
+        fromCurrency: UICurrency?,
+        quoteCurrency: UICurrency?
+    ) {
         binding.tvFragmentConvertBase.text = fromCurrency?.symbol
         binding.tvFragmentConvertQuote.text = quoteCurrency?.symbol
         binding.etFragmentConvertBaseAmount.setText(amount)
@@ -121,7 +158,11 @@ class ConvertFragment : Fragment() {
         val tempCurrency = fromCurrency
         fromCurrency = quoteCurrency
         quoteCurrency = tempCurrency
-        populateCurrency(binding.etFragmentConvertBaseAmount.text.toString(), fromCurrency, quoteCurrency)
+        populateCurrency(
+            binding.etFragmentConvertBaseAmount.text.toString(),
+            fromCurrency,
+            quoteCurrency
+        )
     }
 
     private fun findExchangeRate(text: CharSequence?) {
