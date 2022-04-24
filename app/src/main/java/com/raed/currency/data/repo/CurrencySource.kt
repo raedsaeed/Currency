@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created By Raed Saeed on 22/04/2022
  */
-class CurrencyRepo @Inject constructor(private val api: ApiService) : ICurrencyRepo {
+class CurrencySource @Inject constructor(private val api: ApiService) : ICurrencySource {
     override suspend fun getLatest(): CurrencyResponse {
         return api.getLatest(BuildConfig.API_KEY)
     }

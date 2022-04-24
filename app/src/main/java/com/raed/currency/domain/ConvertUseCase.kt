@@ -20,7 +20,7 @@ class ConvertUseCase @Inject constructor() : IConvertUseCase {
     override suspend fun getExchangeRatesForCurrency(
         base: String,
         topCurrencies: List<String>,
-        quotes: List<UICurrency>
+        quotes: List<UICurrency>?
     ): Flow<ViewState> = flow {
         emit(ViewState.Loading)
         val exchangeRates = CurrencyUtils.getExchangeRatesForCurrency(base, topCurrencies, quotes)

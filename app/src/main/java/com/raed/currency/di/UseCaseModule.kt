@@ -1,6 +1,8 @@
 package com.raed.currency.di
 
-import com.raed.currency.data.repo.CurrencyRepo
+import com.raed.currency.data.repo.CurrencySource
+import com.raed.currency.data.repo.ICurrencySource
+import com.raed.currency.data.source.remote.ApiService
 import com.raed.currency.domain.ConvertUseCase
 import com.raed.currency.domain.HistoricalUseCase
 import com.raed.currency.domain.LatestUseCase
@@ -20,11 +22,16 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class UseCaseModule {
     @Provides
-    fun provideLatestUseCase(repo: CurrencyRepo): ILatestUseCase = LatestUseCase(repo)
+    fun provideCurrencyRemoteDataSource(apiService: ApiService): ICurrencySource =
+        CurrencySource(apiService)
+
+    @Provides
+    fun provideLatestUseCase(source: ICurrencySource): ILatestUseCase = LatestUseCase(source)
 
     @Provides
     fun provideConvertUseCase(): IConvertUseCase = ConvertUseCase()
 
     @Provides
-    fun provideHistoricalUseCase(repo: CurrencyRepo): IHistoricalUseCase = HistoricalUseCase(repo)
+    fun provideHistoricalUseCase(source: ICurrencySource): IHistoricalUseCase =
+        HistoricalUseCase(source)
 }

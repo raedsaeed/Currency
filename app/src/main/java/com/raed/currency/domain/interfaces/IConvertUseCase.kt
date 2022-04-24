@@ -1,7 +1,6 @@
 package com.raed.currency.domain.interfaces
 
 import com.raed.currency.data.ViewState
-import com.raed.currency.data.models.CurrencyResponse
 import com.raed.currency.presentation.uimodels.UICurrency
 import kotlinx.coroutines.flow.Flow
 
@@ -13,6 +12,6 @@ interface IConvertUseCase {
     suspend fun getExchangeRatesForCurrency(
         base: String,
         topCurrencies : List<String>,
-        quotes: List<UICurrency>
+        quotes: List<UICurrency>?
     ): Flow<ViewState>
 }
